@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Calculator Audit Logger
+
+Resources:
+  AuditLoggerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: audit_logger.handler
+      Runtime: python3.9
+      Timeout: 10
+      MemorySize: 128
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AuditLogsTable
+      Events:
+        ApiPost:
+          Type: HttpApi
+          Properties:
+            Path: /audit
+            Method: POST
+        ApiGet:
+          Type: HttpApi
+          Properties:
+            Path: /audit
+            Method: GET
+        ApiOptions:
+          Type: HttpApi
+          Properties:
+            Path: /audit
+            Method: OPTIONS
+
+  AuditLogsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: calculator_audit_logs
+      AttributeDefinitions:
+        - AttributeName: eventId
+          AttributeType: N
+        - AttributeName: timestamp
+          AttributeType: S
+      KeySchema:
+        - AttributeName: eventId
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowMethods: [GET, POST, OPTIONS]
+        AllowHeaders: [Content-Type]
+        AllowOrigins: ['*']
+
+  BedrockChatbotFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: bedrock_chatbot.handler
+      Runtime: python3.9
+      Timeout: 30
+      MemorySize: 256
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref AuditLogsTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+              Resource: 'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-v2'
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            Path: /chat
+            Method: POST
+
+Outputs:
+  ApiEndpoint:
+    Description: API Gateway endpoint URL
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/audit"
