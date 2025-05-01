@@ -1,4 +1,4 @@
-# SmartLead Calculator 
+# SmartLead Calculator with ChatBot
 
 ## Overview (URL : https://jocular-dasik-10ed97.netlify.app/)
 
@@ -10,7 +10,7 @@
 
 - **Interactive Calculator Interface**: Supports both keyboard and mouse inputs for performing calculations.
 - **Audit Trail**: Maintains a log of all calculations, which can be reviewed during the session.
-- **Chat Functionality**: Provides a basic conversational interface for user interaction.
+- **Chat Functionality**: Chat with the audit trail information.
 - **Modern UI**: Includes dynamic visual effects to enhance the user experience.
 
 ---
