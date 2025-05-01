@@ -25,7 +25,6 @@ export function logAuditEvent(action, value) {
   const auditQueue = JSON.parse(localStorage.getItem("auditQueue") || "[]");
   auditQueue.push(event);
   localStorage.setItem("auditQueue", JSON.stringify(auditQueue));
-  console.log("Calling the lambda function", event);
   event["httpMethod"] = "POST";
   axios.post(AUDIT_ENDPOINT_URL, event, {
     headers: {
@@ -33,7 +32,6 @@ export function logAuditEvent(action, value) {
         }
     })
     .then((response) => {
-      console.log("Audit event sent successfully", response);
       const remainingQueue = auditQueue.filter(e => e.id !== event.id);
       localStorage.setItem("auditQueue", JSON.stringify(remainingQueue));
     })
@@ -50,7 +48,6 @@ export async function fetchAuditLogs(limit = 50, startFrom = null) {
     }
 
     const response = await axios.get(url);
-    console.log("Response from the lambda function", response);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch audit logs:', error);

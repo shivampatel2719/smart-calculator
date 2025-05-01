@@ -31,9 +31,14 @@ const AuditTrail = () => {
     <div className="audit-trail-container">
       <div className="audit-trail-header">
         <h1>Calculator Audit Trail</h1>
-        <button className="back-button" onClick={() => navigate('/')}>
-          Back to Calculator
-        </button>
+        <div className="button-container">
+          <button className="chat-button" onClick={() => navigate('/chat')}>
+            Open Chat
+          </button>
+          <button className="back-button" onClick={() => navigate('/')}>
+            Back to Calculator
+          </button>
+        </div>
       </div>
       <table className="audit-table">
         <thead>

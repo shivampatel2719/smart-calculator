@@ -85,3 +85,23 @@
     }
   }
   
+  .button-container {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .chat-button {
+    padding: 0.5rem 1rem;
+    background-color: #3B82F6;
+    border: none;
+    border-radius: 8px;
+    color: #F8FAFC;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .chat-button:hover {
+    background-color: #2563EB;
+    transform: scale(1.05);
+  }
+  
