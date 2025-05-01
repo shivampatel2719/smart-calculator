@@ -1,0 +1,87 @@
+.audit-trail-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #0F172A;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #3B82F6;
+    color: #F8FAFC;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .audit-trail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .audit-trail-header h1 {
+    font-size: 2rem;
+    text-shadow: 0 0 10px #3B82F6;
+    margin: 0;
+  }
+  
+  .back-button {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    background-color: #3B82F6;
+    border: none;
+    border-radius: 8px;
+    color: #F8FAFC;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #2563EB;
+    transform: scale(1.05);
+  }
+  
+  .audit-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1E293B;
+    box-shadow: 0 0 10px #3B82F6;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .audit-table th,
+  .audit-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+  }
+  
+  .audit-table th {
+    background-color: #1E40AF;
+    color: #F8FAFC;
+  }
+  
+  .audit-table td {
+    color: #CBD5E1;
+  }
+  
+  .audit-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  @media (max-width: 600px) {
+    .audit-trail-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .back-button {
+      margin-top: 1rem;
+    }
+  
+    .audit-table th,
+    .audit-table td {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+  
